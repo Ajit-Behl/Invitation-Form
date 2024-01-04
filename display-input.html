@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Display Inputs</title>
+  <!-- Your other head content -->
+</head>
+<body>
+  <h1>Stored Inputs</h1>
+  <div id="storedInputs"></div>
+
+  <script>
+    // Retrieve input values from localStorage and display them
+    const storedInputsDiv = document.getElementById('storedInputs');
+    const storedInputs = JSON.parse(localStorage.getItem('inputValues'));
+
+    if (storedInputs) {
+      const inputsList = document.createElement('ul');
+
+      for (const inputName in storedInputs) {
+        const inputValue = storedInputs[inputName];
+
+        const listItem = document.createElement('li');
+        listItem.textContent = `${inputName}: ${inputValue}`;
+        inputsList.appendChild(listItem);
+      }
+
+      storedInputsDiv.appendChild(inputsList);
+    } else {
+      storedInputsDiv.textContent = 'No inputs stored.';
+    }
+  </script>
+</body>
+</html>

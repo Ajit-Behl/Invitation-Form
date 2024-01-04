@@ -1,0 +1,113 @@
+/*
+let output = document.getElementById('output');
+function clearAllInputs(event){
+    let allInputs = document.querySelectorAll('input');
+    allInputs.forEach(singleInput => singleInput.value = '');
+ if(!userInput == 0){
+   input.parentElement.classList.remove('error');
+  }
+  let textToDisplay = "Thank you for your responce";
+  output.innerHTML = textToDisplay;
+}
+const input = document.querySelectorAll('.rigth-col form input');
+let inValue = [];
+function clearAllInputs(){
+    let userInput = document.getElementsByClassName('solution')
+    let enteredValue = userInput.value;
+    if(userInput && enteredValue !== ''){
+        inValue.push(enteredValue);
+        console.log('Current input values:', inValue);
+    }else{
+        console.log('Plese enter a value ');
+    }
+    input.value ='';
+}*/
+
+let inValue = [];
+function ValidateEmail(mail) 
+{
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(form.email.value))
+  {
+    return (true);
+  }else{
+    return(false);
+  }
+} 
+
+function clearAllInputs() {
+
+  const form = document.querySelector('.rigth-col form');
+  const input = document.querySelectorAll('.rigth-col form input');
+ form.addEventListener('submit', (e)=> {
+     console.log("testing");
+      e.preventDefault();
+      input.forEach(input=>{
+          if(!input.value){
+
+              input.parentElement.classList.add('error');
+          }else{
+              input.parentElement.classList.remove('error');
+              if(input.type == 'email'){
+                  if(ValidateEmail(input.value)){
+                      input.parentElement.classList.remove('error');
+                  }else{
+                      input.parentElement.classList.add('error')
+                  }
+              }
+          }
+      })
+ })}
+
+
+ function ValidateEmail(mail) {
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail);
+  }
+  
+  function clearAllInputs() {
+    const form = document.querySelector('.rigth-col form');
+    const input = document.querySelectorAll('.rigth-col form input');
+    let inputValues = {};
+  
+    input.forEach(inputElem => {
+      if (inputValues[inputElem.fullName]) {
+        inputElem.value = inputValues[inputElem.fullName];
+      }
+    });
+  
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let hasError = false;
+  
+      input.forEach(inputElem => {
+        if (!inputElem.value) {
+          inputElem.parentElement.classList.add('error');
+          hasError = true;
+        } else {
+          inputElem.parentElement.classList.remove('error');
+          if (inputElem.type === 'email') {
+            if (!ValidateEmail(inputElem.value)) {
+              inputElem.parentElement.classList.add('error');
+              hasError = true;
+            }
+          }
+        }
+        inputValues[inputElem.fullName] = inputElem.value;
+      });
+  
+      if (!hasError) {
+        document.getElementById('output').style.display = 'block';
+        console.log('Form submitted successfully!');
+      }
+    });
+  
+    input.forEach(inputElem => {
+      inputElem.addEventListener('input', () => {
+        inputElem.parentElement.classList.remove('error');
+      });
+    });
+    setTimeout(() =>{
+  
+      window.location.reload();
+     }, 5000);
+  }
+  
